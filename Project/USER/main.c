@@ -15,13 +15,71 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include "include.h"
 #include "LQ_Photoelectric.h"
 
+uint8_t TurnLeft[][4] = {
+	{1, 1, 1, 0}, // 1110
+	{1, 1, 0, 0}, // 1100
+	{1, 0, 0, 0}, // 1000
+	{0, 0, 0, 0}  // 0000
+
+};
+uint8_t TurnRight[][4] = {
+	{0, 0, 0, 1}, // 0001
+	{0, 0, 1, 1}, // 0011
+	{0, 1, 1, 1}  // 0111
+};
+uint8_t GoStraight[][4] = {
+	{1, 1, 1, 1}, // 1111
+	{0, 1, 1, 0}  // 0110
+};
+
+// 转弯判断函数 判断是否向传入方向转弯
+uint8_t is_turn_single(uint8_t Turn[4], uint8_t sensor_Value[4])
+{
+	return (sensor_Value[0] == Turn[0] &&
+			sensor_Value[1] == Turn[1] &&
+			sensor_Value[2] == Turn[2] &&
+			sensor_Value[3] == Turn[3]);
+};
+
+// 转弯判断函数 判断左转0/直行1/右转2
+uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], uint8_t sensor[4])
+{
+	int i = 0;
+	// 左转检查
+	for (i = 0; i < sizeof(Left) / sizeof(Left[0]); i++)
+	{
+		if (is_turn_single(Left[i], sensor))
+		{
+			return 0;
+		}
+	}
+	// 直行检查
+	for (i = 0; i < sizeof(Straight) / sizeof(Straight[0]); i++)
+	{
+		if (is_turn_single(Straight[i], sensor))
+		{
+			return 1;
+		}
+	}
+	// 右转检查
+	for (i = 0; i < sizeof(Right) / sizeof(Right[0]); i++)
+	{
+		if (is_turn_single(Right[i], sensor))
+		{
+			return 2;
+		}
+	}
+	// 错误
+	return 3;
+};
+
 int main(void)
 {
 	uint8_t sensor_Value[4];
 	int16_t duty = 1000, flag = 0;
 	int16_t duty1 = 0, duty2 = 0, duty3 = 0;
 	char txt[64];
-
+	uint8_t turn;
 	//-----------------------系统初始化配置----------------------------
 	HAL_Init();			  // 初始化HAL库
 	SystemClock_Config(); // 设置时钟9倍频,72M
@@ -39,45 +97,6 @@ int main(void)
 
 	while (1)
 	{
-		// KEY->Moter 逻辑判断
-		if (Read_key(KEY1) == 1) // 按下KEY0键 停止
-		{
-			if (duty > -PWM_DUTY_MAX)
-			{
-				duty1 = 0;
-				duty2 = 0;
-				duty3 = 0;
-			}
-		}
-		if (Read_key(KEY2) == 1) // 按下KEY2键 原地旋转
-		{
-			if (duty < PWM_DUTY_MAX) // 满占空比为10000，限制7200
-			{
-				duty1 = 1000;
-				duty2 = 1000;
-				duty3 = 1000;
-			}
-		}
-		if (Read_key(KEY3) == 1) // 按下KEY3键 右转
-		{
-			if (duty < PWM_DUTY_MAX) // 满占空比为10000，限制7200
-			{
-				duty1 = 0;
-				duty2 = -1000;
-				duty3 = 1900;
-			}
-		}
-		if (Read_key(KEY4) == 1) // 按下KEY4键 前进
-		{
-			duty1 = 0;
-			duty2 = -1000;
-			duty3 = 900;
-		}
-		// Moter 控制
-		MotorCtrl3w(duty1, duty2, duty3);
-		sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
-		OLED_P6x8Str(10, 5, txt);
-
 		// 光电传感器 黑1白0
 		sensor_Value[0] = Read_sensor(sensor1);
 		sensor_Value[1] = Read_sensor(sensor2);
@@ -88,12 +107,21 @@ int main(void)
 		LED_Ctrl(RVS);
 
 		// 左右转逻辑判断
-		uint8_t TurnRight[] = {1, 0, 0, 0};
-		if (sensor_Value[0] == 1 && sensor_Value[1] == 1 && sensor_Value[2] == 0 && sensor_Value[3] == 0)
+		turn = is_turn(TurnLeft, TurnRight, GoStraight, sensor_Value);
+		switch (turn)
 		{
-			duty1 = 0;
-			duty2 = -1000;
-			duty3 = 900;
+		case 0:
+			OLED_P6x8Str(0, 3, "Turn Left");
+			break;
+		case 1:
+			OLED_P6x8Str(0, 3, "Go Straight");
+			break;
+		case 2:
+			OLED_P6x8Str(0, 3, "Turn Right");
+			break;
+		default:
+			OLED_P6x8Str(0, 3, "Error");
+			break;
 		}
 		delay_ms(50);
 	}
