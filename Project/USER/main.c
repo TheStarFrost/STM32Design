@@ -17,80 +17,84 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 
 int main(void)
 {
-	    uint8_t sensor_Value[4];
-    int16_t duty = 1000,flag = 0;
-    char txt[16];
-		int duty3;
-		int duty2;
+	uint8_t sensor_Value[4];
+	int16_t duty = 1000, flag = 0;
+	int16_t duty1 = 0, duty2 = 0, duty3 = 0;
+	char txt[64];
+
 	//-----------------------系统初始化配置----------------------------
 	HAL_Init();			  // 初始化HAL库
 	SystemClock_Config(); // 设置时钟9倍频,72M
 	delay_init(72);		  // 初始化延时函数
 	JTAG_Set(SWD_ENABLE); // 打开SWD接口 可以利用主板的SWD接口调试
 	//-----------------------------------------------------------------
-    
+
 	LED_Init();			// LED初始化
-	OLED_Init();		// OLED初始化   
+	OLED_Init();		// OLED初始化
 	OLED_Show_LQLogo(); // 显示LOGO
 	delay_ms(500);		// 延时等待
 	OLED_CLS();			// 清屏
-    MotorInit();
-	OLED_P8x16Str(20,0,"Test Motor");
-    
-  while (1)
-  {
-		// guang dian tan ce
+	MotorInit();
+	OLED_P8x16Str(20, 0, "Project Test");
+
+	while (1)
+	{
+		// KEY->Moter 逻辑判断
+		if (Read_key(KEY1) == 1) // 按下KEY0键 停止
+		{
+			if (duty > -PWM_DUTY_MAX)
+			{
+				duty1 = 0;
+				duty2 = 0;
+				duty3 = 0;
+			}
+		}
+		if (Read_key(KEY2) == 1) // 按下KEY2键 原地旋转
+		{
+			if (duty < PWM_DUTY_MAX) // 满占空比为10000，限制7200
+			{
+				duty1 = 1000;
+				duty2 = 1000;
+				duty3 = 1000;
+			}
+		}
+		if (Read_key(KEY3) == 1) // 按下KEY3键 右转
+		{
+			if (duty < PWM_DUTY_MAX) // 满占空比为10000，限制7200
+			{
+				duty1 = 0;
+				duty2 = -1000;
+				duty3 = 1900;
+			}
+		}
+		if (Read_key(KEY4) == 1) // 按下KEY4键 前进
+		{
+			duty1 = 0;
+			duty2 = -1000;
+			duty3 = 900;
+		}
+		// Moter 控制
+		MotorCtrl3w(duty1, duty2, duty3);
+		sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+		OLED_P6x8Str(10, 5, txt);
+
+		// 光电传感器 黑1白0
 		sensor_Value[0] = Read_sensor(sensor1);
 		sensor_Value[1] = Read_sensor(sensor2);
 		sensor_Value[2] = Read_sensor(sensor3);
 		sensor_Value[3] = Read_sensor(sensor4);
-		
-    if(Read_key(KEY1) == 1)      //按下KEY0键，占空比减小
-    {
-      //if(duty > -PWM_DUTY_MAX)
-        duty = 0;
-				duty2 = duty;
-			  duty3 = duty;
-    }
-    if(Read_key(KEY2) == 1)      //按下KEY2键，占空比加大
-    {
-      //if(duty < PWM_DUTY_MAX)   //满占空比为10000，限制7200
-        duty = 0;
-			  duty2 = -2000;
-			  duty3 = 900;
-    }
-    if(Read_key(KEY3) == 1)      //按下KEY1键，占空比中值
-    {
-      duty = 0;
-			duty2 = -1000;
-			duty3 = 1900;
-    }
-		if(Read_key(KEY4) == 1)      //按下KEY1键，占空比中值
-    {
-      duty = 0;
-			duty2 = -1000;
-			duty3 = 900;
-    }
-    
-//    /*  自动加减速测试 */   //240814
-//    if(duty >= 3500)//6000
-//        flag = 1;
-//    if(duty <= -3500)
-//        flag = 0;
-//    
-//    if(flag == 0)
-//        duty += 100;
-//    else
-//        duty -= 100;
-    MotorCtrl3w(duty,duty2, duty3);
-		sprintf(txt, "PWM: %5d,%5d,%5d", duty, duty2, duty3);
-    //sprintf(txt, "PWM: %5d;", duty);
-	  OLED_P8x16Str(10,5,txt);
 		sprintf(txt, "%d %d %d %d", sensor_Value[0], sensor_Value[1], sensor_Value[2], sensor_Value[3]);
 		OLED_P6x8Str(0, 2, txt); // 字符串
-    
-    LED_Ctrl(RVS);       //电平翻转,LED闪烁
-    delay_ms(100);       //延时等待
-  }
-}
+		LED_Ctrl(RVS);
 
+		// 左右转逻辑判断
+		uint8_t TurnRight[] = {1, 0, 0, 0};
+		if (sensor_Value[0] == 1 && sensor_Value[1] == 1 && sensor_Value[2] == 0 && sensor_Value[3] == 0)
+		{
+			duty1 = 0;
+			duty2 = -1000;
+			duty3 = 900;
+		}
+		delay_ms(50);
+	}
+}
