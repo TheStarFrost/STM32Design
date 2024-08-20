@@ -15,6 +15,58 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include "include.h"
 #include "LQ_Photoelectric.h"
 
+void straight(int duty1, int duty2, int duty3, char *txt) // the car go staight
+{
+	if (duty1 < PWM_DUTY_MAX) // ?????10000,??7200
+	{
+		duty1 = 0;
+		duty2 = -1500;
+		duty3 = 1400;
+		MotorCtrl3w(duty1, duty2, duty3);
+		// sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+		// OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void left(int duty1, int duty2, int duty3, char *txt) // the car turn left
+{
+	if (duty1 < PWM_DUTY_MAX) // ?????10000,??7200
+	{
+		duty1 = 0;
+		duty2 = -1400;
+		duty3 = 400;
+		MotorCtrl3w(duty1, duty2, duty3);
+		// sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+		// OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void right(int duty1, int duty2, int duty3, char *txt) // the car turn right
+{
+	if (duty1 < PWM_DUTY_MAX) // ?????10000,??7200
+	{
+		duty1 = 0;
+		duty2 = -500;
+		duty3 = 1300;
+		MotorCtrl3w(duty1, duty2, duty3);
+		// sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+		// OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void turn_zero(int duty1, int duty2, int duty3, char *txt) // speed turn zero
+{
+	if (duty1 > -PWM_DUTY_MAX) // ?????10000,??7200
+	{
+		duty1 = 0;
+		duty2 = 0;
+		duty3 = 0;
+		MotorCtrl3w(duty1, duty2, duty3);
+		// sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+		// OLED_P6x8Str(10, 5, txt);
+	}
+}
+
 uint8_t TurnLeft[][4] = {
 	{1, 1, 1, 0}, // 1110
 	{1, 1, 0, 0}, // 1100
@@ -46,7 +98,7 @@ uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], ui
 {
 	int i = 0;
 	// 左转检查
-	for (i = 0; i < sizeof(Left) / sizeof(Left[0]); i++)
+	for (i = 0; i < 4; i++)
 	{
 		if (is_turn_single(Left[i], sensor))
 		{
@@ -54,7 +106,7 @@ uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], ui
 		}
 	}
 	// 直行检查
-	for (i = 0; i < sizeof(Straight) / sizeof(Straight[0]); i++)
+	for (i = 0; i < 2; i++)
 	{
 		if (is_turn_single(Straight[i], sensor))
 		{
@@ -62,7 +114,7 @@ uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], ui
 		}
 	}
 	// 右转检查
-	for (i = 0; i < sizeof(Right) / sizeof(Right[0]); i++)
+	for (i = 0; i < 3; i++)
 	{
 		if (is_turn_single(Right[i], sensor))
 		{
@@ -75,6 +127,7 @@ uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], ui
 
 int main(void)
 {
+	int ECPULSE1 = 0, ECPULSE2 = 0, ECPULSE3 = 0;
 	uint8_t sensor_Value[4];
 	int16_t duty = 1000, flag = 0;
 	int16_t duty1 = 0, duty2 = 0, duty3 = 0;
@@ -86,7 +139,9 @@ int main(void)
 	delay_init(72);		  // 初始化延时函数
 	JTAG_Set(SWD_ENABLE); // 打开SWD接口 可以利用主板的SWD接口调试
 	//-----------------------------------------------------------------
-
+	Encoder_Init_TIM2(); //?????????????2,3,4?????AB??????
+	Encoder_Init_TIM3();
+	Encoder_Init_TIM4();
 	LED_Init();			// LED初始化
 	OLED_Init();		// OLED初始化
 	OLED_Show_LQLogo(); // 显示LOGO
@@ -111,18 +166,31 @@ int main(void)
 		switch (turn)
 		{
 		case 0:
-			OLED_P6x8Str(0, 3, "Turn Left");
+			OLED_P6x8Str(0, 3, "Left!");
+			left(duty1, duty2, duty3, txt);
 			break;
 		case 1:
-			OLED_P6x8Str(0, 3, "Go Straight");
+			OLED_P6x8Str(0, 3, "Line!");
+			straight(duty1, duty2, duty3, txt);
+			// delay_ms(500);
 			break;
 		case 2:
-			OLED_P6x8Str(0, 3, "Turn Right");
+			OLED_P6x8Str(0, 3, "Right");
+			right(duty1, duty2, duty3, txt);
 			break;
 		default:
 			OLED_P6x8Str(0, 3, "Error");
+			straight(duty1, duty2, duty3, txt);
 			break;
 		}
-		delay_ms(50);
+		ECPULSE1 = Read_Encoder(2);
+		sprintf(txt, "E1:%04d ", ECPULSE1);
+		OLED_P6x8Str(0, 4, txt);
+		ECPULSE2 = Read_Encoder(3);
+		sprintf(txt, "E2:%04d ", ECPULSE2);
+		OLED_P6x8Str(0, 5, txt);
+		ECPULSE3 = Read_Encoder(4);
+		sprintf(txt, "E3:%04d ", ECPULSE3);
+		OLED_P6x8Str(0, 6, txt);
 	}
 }
