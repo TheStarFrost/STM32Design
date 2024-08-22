@@ -197,6 +197,8 @@ void TIM3_IRQHandler(void)
 	}				   
 	TIM3->SR&=~(1<<0);//清除中断标志位 	    
 }
+
+
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 @函数名称：void TIM2_IRQHandler(void)
 @功能说明：定时器中断服务函数
@@ -207,15 +209,39 @@ void TIM3_IRQHandler(void)
 @备    注：无
 QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 void TIM2_IRQHandler(void)
-{ 		    		  			    
-	if(TIM2->SR&0X0001)//溢出中断
-	{    				   				     	    	
-	}				   
-	TIM2->SR&=~(1<<0);//清除中断标志位 	    
+{ 		    		 
+    HAL_TIM_IRQHandler(&TIM2_Handler);    
+//	if(TIM2->SR&0X0001)//溢出中断
+//	{    				   				     	    	
+//	}				   
+//	TIM2->SR&=~(1<<0);//清除中断标志位 	    
 }
-
+extern TIM_HandleTypeDef TIM1_Handler;
+void TIM1_IRQHandler(void){
+	HAL_TIM_IRQHandler(&TIM1_Handler);
+}
 /**
   * @}
   */
-
+uint32_t TimeCounter;	 //用于超声波计时
+// 定时器 中断服务回调函数
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if(htim==(&TIM1_Handler))
+    {
+//       LED_Ctrl(RVS);   //用户任务
+    }
+    if(htim==(&TIM2_Handler))
+    {
+        TimeCounter++;   // 超声波 计时 任务
+    }
+    if(htim==(&TIM3_Handler))
+    {
+       LED_Ctrl(RVS);   //用户任务
+    }
+    if(htim==(&TIM4_Handler))
+    {
+//       LED_Ctrl(RVS);   //用户任务
+    }
+}
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

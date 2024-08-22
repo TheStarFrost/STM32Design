@@ -1,17 +1,17 @@
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-@±à    Ð´£ºÁúÇñ¿Æ¼¼
-@E-mail  £ºchiusir@163.com
-@±àÒëIDE £ºKEIL5.25.3¼°ÒÔÉÏ°æ±¾
-@Ê¹ÓÃÆ½Ì¨£º±±¾©ÁúÇñÖÇÄÜ¿Æ¼¼È«Ïò¸£À´ÂÖÐ¡³µ
-@×îºó¸üÐÂ£º2022Äê02ÔÂ19ÈÕ£¬³ÖÐø¸üÐÂ£¬Çë¹Ø×¢×îÐÂ°æ£¡
-@¹¦ÄÜ½éÉÜ£º
-@Ïà¹ØÐÅÏ¢²Î¿¼ÏÂÁÐµØÖ·
-@Íø    Õ¾£ºhttp://www.lqist.cn
-@ÌÔ±¦µêÆÌ£ºhttp://longqiu.taobao.com
-@Èí¼þ°æ±¾£ºV1.0 °æÈ¨ËùÓÐ£¬µ¥Î»Ê¹ÓÃÇëÏÈÁªÏµÊÚÈ¨
+@��    д������Ƽ�
+@E-mail  ��chiusir@163.com
+@����IDE ��KEIL5.25.3�����ϰ汾
+@ʹ��ƽ̨�������������ܿƼ�ȫ������С��
+@�����£�2022��02��19�գ��������£����ע���°棡
+@���ܽ��ܣ�
+@�����Ϣ�ο����е�ַ
+@��    վ��http://www.lqist.cn
+@�Ա����̣�http://longqiu.taobao.com
+@�����汾��V1.0 ��Ȩ���У���λʹ��������ϵ��Ȩ
 QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 
-// °üº¬ËùÓÐÍ·ÎÄ¼þ
+// ��������ͷ�ļ�
 #include "include.h"
 
 
@@ -210,7 +210,7 @@ int main(void)
 	delay_init(72);		  // ???????
 	JTAG_Set(SWD_ENABLE); // ??SWD?? ???????SWD????
 	//-----------------------------------------------------------------
-	//Encoder_Init_TIM2();   //????????ö????2,3,4?????AB??????
+	//Encoder_Init_TIM2();   //????????�????2,3,4?????AB??????
 	//Encoder_Init_TIM3();
 	//Encoder_Init_TIM4();
 	Ultrasonic_Init();
@@ -339,3 +339,4 @@ int main(void)
 	}
 }
 }
+
