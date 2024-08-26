@@ -3,17 +3,19 @@
         {
             "name": "LQ_32F1_AIO_LIB",
             "includePath": [
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\CMSIS",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\CMSIS\\CORE",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\CMSIS\\HAL_Driver\\Inc",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\CMSIS\\HAL_Driver\\Inc\\Legacy",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\MDK",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\USER\\APP\\inc",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\USER\\DebugConfig",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\USER",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\USER\\APP\\src",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project\\CMSIS\\HAL_Driver\\Src",
-                "c:\\Users\\13487\\Desktop\\Design\\STM32Design\\Project"
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\CMSIS",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\CMSIS\\CORE",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\CMSIS\\HAL_Driver\\Inc",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\CMSIS\\HAL_Driver\\Inc\\Legacy",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\MDK",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\USER\\APP\\inc",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\USER\\DebugConfig",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\USER",
+                "D:\\Keil_v5\\ARM\\ARMCC\\include",
+                "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\USER\\APP\\src",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test\\CMSIS\\HAL_Driver\\Src",
+                "f:\\LQ_项目文件\\6-清华冬-夏令营专项\\STM32清华夏末暑期电子课程资料\\STM32F1独立例程\\4.TIM_Test"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

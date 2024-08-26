@@ -3,7 +3,7 @@
 ..\obj\sys.o: ..\CMSIS\stm32f1xx.h
 ..\obj\sys.o: ..\CMSIS\stm32f103xe.h
 ..\obj\sys.o: ..\CMSIS\CORE\core_cm3.h
-..\obj\sys.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\sys.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\sys.o: ..\CMSIS\CORE\cmsis_compiler.h
 ..\obj\sys.o: ..\CMSIS\CORE\cmsis_armcc.h
 ..\obj\sys.o: ..\CMSIS\system_stm32f1xx.h
@@ -12,7 +12,7 @@
 ..\obj\sys.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc.h
 ..\obj\sys.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_def.h
 ..\obj\sys.o: ..\CMSIS\stm32f1xx.h
-..\obj\sys.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\sys.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\sys.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 ..\obj\sys.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 ..\obj\sys.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h

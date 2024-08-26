@@ -1,15 +1,15 @@
 ..\obj\ano_dt.o: ..\USER\APP\src\ANO_DT.c
 ..\obj\ano_dt.o: ..\USER\include.h
-..\obj\ano_dt.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\ano_dt.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\ano_dt.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\obj\ano_dt.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\ano_dt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\ano_dt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\ano_dt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\ano_dt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\ano_dt.o: ..\USER\APP\inc\LQ_Usart.h
 ..\obj\ano_dt.o: ..\USER\APP\inc\sys.h
 ..\obj\ano_dt.o: ..\CMSIS\stm32f1xx.h
 ..\obj\ano_dt.o: ..\CMSIS\stm32f103xe.h
 ..\obj\ano_dt.o: ..\CMSIS\CORE\core_cm3.h
-..\obj\ano_dt.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\ano_dt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\ano_dt.o: ..\CMSIS\CORE\cmsis_compiler.h
 ..\obj\ano_dt.o: ..\CMSIS\CORE\cmsis_armcc.h
 ..\obj\ano_dt.o: ..\CMSIS\system_stm32f1xx.h
@@ -18,7 +18,7 @@
 ..\obj\ano_dt.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc.h
 ..\obj\ano_dt.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_def.h
 ..\obj\ano_dt.o: ..\CMSIS\stm32f1xx.h
-..\obj\ano_dt.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\ano_dt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\ano_dt.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 ..\obj\ano_dt.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 ..\obj\ano_dt.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h
@@ -76,5 +76,4 @@
 ..\obj\ano_dt.o: ..\USER\APP\inc\LQ_ADC.h
 ..\obj\ano_dt.o: ..\USER\APP\inc\LQ_IIC_Gyro.h
 ..\obj\ano_dt.o: ..\USER\APP\inc\LQ_MPU6050_DMP.h
-..\obj\ano_dt.o: ..\USER\APP\inc\LQ_Photoelectric.h
 ..\obj\ano_dt.o: ..\USER\APP\inc\ANO_DT.h

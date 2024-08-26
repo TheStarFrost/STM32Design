@@ -7,12 +7,12 @@
 ..\obj\stm32f1xx_it.o: ..\CMSIS\stm32f1xx.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\stm32f103xe.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\CORE\core_cm3.h
-..\obj\stm32f1xx_it.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\CORE\cmsis_compiler.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\CORE\cmsis_armcc.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\system_stm32f1xx.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal.h
-..\obj\stm32f1xx_it.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 ..\obj\stm32f1xx_it.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h
@@ -59,10 +59,10 @@
 ..\obj\stm32f1xx_it.o: ..\USER\stm32f1xx_it.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_TIM.h
 ..\obj\stm32f1xx_it.o: ..\USER\include.h
-..\obj\stm32f1xx_it.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\stm32f1xx_it.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\stm32f1xx_it.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\obj\stm32f1xx_it.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_Usart.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\sys.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\delay.h
@@ -79,5 +79,4 @@
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_ADC.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_IIC_Gyro.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_MPU6050_DMP.h
-..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_Photoelectric.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\ANO_DT.h

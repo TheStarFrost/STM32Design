@@ -1,11 +1,11 @@
 ..\obj\lq_softi2c.o: ..\USER\APP\src\LQ_SOFTI2C.c
-..\obj\lq_softi2c.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lq_softi2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\LQ_SOFTI2C.h
 ..\obj\lq_softi2c.o: ..\USER\include.h
-..\obj\lq_softi2c.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\lq_softi2c.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\lq_softi2c.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\obj\lq_softi2c.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\lq_softi2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\lq_softi2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\lq_softi2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\lq_softi2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\LQ_Usart.h
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\sys.h
 ..\obj\lq_softi2c.o: ..\CMSIS\stm32f1xx.h
@@ -19,7 +19,7 @@
 ..\obj\lq_softi2c.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc.h
 ..\obj\lq_softi2c.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_def.h
 ..\obj\lq_softi2c.o: ..\CMSIS\stm32f1xx.h
-..\obj\lq_softi2c.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\lq_softi2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\lq_softi2c.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 ..\obj\lq_softi2c.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 ..\obj\lq_softi2c.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h
@@ -77,5 +77,4 @@
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\LQ_ADC.h
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\LQ_IIC_Gyro.h
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\LQ_MPU6050_DMP.h
-..\obj\lq_softi2c.o: ..\USER\APP\inc\LQ_Photoelectric.h
 ..\obj\lq_softi2c.o: ..\USER\APP\inc\ANO_DT.h

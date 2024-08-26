@@ -6,12 +6,12 @@
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\stm32f1xx.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\stm32f103xe.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\CORE\core_cm3.h
-..\obj\stm32f1xx_hal_rtc_ex.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\stm32f1xx_hal_rtc_ex.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\CORE\cmsis_compiler.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\CORE\cmsis_armcc.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\system_stm32f1xx.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal.h
-..\obj\stm32f1xx_hal_rtc_ex.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\stm32f1xx_hal_rtc_ex.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 ..\obj\stm32f1xx_hal_rtc_ex.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h

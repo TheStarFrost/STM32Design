@@ -1,16 +1,16 @@
 ..\obj\lq_tim.o: ..\USER\APP\src\LQ_TIM.c
 ..\obj\lq_tim.o: ..\USER\APP\inc\LQ_TIM.h
 ..\obj\lq_tim.o: ..\USER\include.h
-..\obj\lq_tim.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\lq_tim.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\lq_tim.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\obj\lq_tim.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\lq_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\lq_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\lq_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\lq_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\lq_tim.o: ..\USER\APP\inc\LQ_Usart.h
 ..\obj\lq_tim.o: ..\USER\APP\inc\sys.h
 ..\obj\lq_tim.o: ..\CMSIS\stm32f1xx.h
 ..\obj\lq_tim.o: ..\CMSIS\stm32f103xe.h
 ..\obj\lq_tim.o: ..\CMSIS\CORE\core_cm3.h
-..\obj\lq_tim.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\lq_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\lq_tim.o: ..\CMSIS\CORE\cmsis_compiler.h
 ..\obj\lq_tim.o: ..\CMSIS\CORE\cmsis_armcc.h
 ..\obj\lq_tim.o: ..\CMSIS\system_stm32f1xx.h
@@ -19,7 +19,7 @@
 ..\obj\lq_tim.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc.h
 ..\obj\lq_tim.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_def.h
 ..\obj\lq_tim.o: ..\CMSIS\stm32f1xx.h
-..\obj\lq_tim.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\lq_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\lq_tim.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 ..\obj\lq_tim.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 ..\obj\lq_tim.o: ..\CMSIS\HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h
@@ -77,5 +77,4 @@
 ..\obj\lq_tim.o: ..\USER\APP\inc\LQ_ADC.h
 ..\obj\lq_tim.o: ..\USER\APP\inc\LQ_IIC_Gyro.h
 ..\obj\lq_tim.o: ..\USER\APP\inc\LQ_MPU6050_DMP.h
-..\obj\lq_tim.o: ..\USER\APP\inc\LQ_Photoelectric.h
 ..\obj\lq_tim.o: ..\USER\APP\inc\ANO_DT.h

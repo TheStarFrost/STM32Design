@@ -184,18 +184,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 	}
 }
- 
-//串口2中断服务程序
-void USART2_IRQHandler(void)                	
-{ 
-	HAL_UART_IRQHandler(&USART2_Handler);	//调用HAL库中断处理公用函数-----该函数会清空中断标志，取消中断使能，并间接调用回调函数
-} 
-
-//串口3中断服务程序
-void USART3_IRQHandler(void)                	
-{ 
-	HAL_UART_IRQHandler(&USART3_Handler);	//调用HAL库中断处理公用函数-----该函数会清空中断标志，取消中断使能，并间接调用回调函数
-} 
 
 
 void uart_SendBuf(UART_HandleTypeDef *huart, uint8_t *pData)
