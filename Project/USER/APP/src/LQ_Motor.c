@@ -16,8 +16,6 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 //#define MOTOR_FREQUENCY    PWM_DUTY_MAX
 
 //#define USE7843or7971   //USEDRV8701 使用龙邱不同的驱动模块，选择对应的宏定义
-TIM_HandleTypeDef 	TIM1_Handler;
-TIM_OC_InitTypeDef  TIM1_CH1Handler;    		//定时器1通道1句柄
 #define USEDRV8701
 
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
@@ -29,8 +27,12 @@ TIM_OC_InitTypeDef  TIM1_CH1Handler;    		//定时器1通道1句柄
 @调用方法：	TIM1_PWM_Init(7199, 0);
 @备    注：
 QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
+TIM_HandleTypeDef 	TIM1_Handler;
 void TIM1_PWM_Init(u16 arr,u16 psc)
-{    
+{
+    
+    TIM_OC_InitTypeDef  TIM1_CH1Handler;    		//定时器1通道1句柄
+    
 	TIM1_Handler.Instance=TIM1;             		//定时器1
 	TIM1_Handler.Init.Prescaler=psc;           	    //定时器分频
 	TIM1_Handler.Init.CounterMode=TIM_COUNTERMODE_UP;//向上计数模式
@@ -51,9 +53,7 @@ void TIM1_PWM_Init(u16 arr,u16 psc)
 	HAL_TIM_PWM_Start(&TIM1_Handler,TIM_CHANNEL_2);//开启PWM通道2
 	HAL_TIM_PWM_Start(&TIM1_Handler,TIM_CHANNEL_3);//开启PWM通道3
 
-    HAL_TIM_PWM_Start_IT(&TIM1_Handler, TIM_CHANNEL_1);  //启动主定时器PWM输出更新中断
-    HAL_TIM_PWM_Start_IT(&TIM1_Handler, TIM_CHANNEL_2);
-    HAL_TIM_PWM_Start_IT(&TIM1_Handler, TIM_CHANNEL_3);
+    HAL_TIM_PWM_Start_IT(&TIM1_Handler, TIM_CHANNEL_1);  //启动主定时器PWM输出
 }
 
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL

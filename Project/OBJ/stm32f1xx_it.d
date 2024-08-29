@@ -79,5 +79,6 @@
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_ADC.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_IIC_Gyro.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_MPU6050_DMP.h
-..\obj\stm32f1xx_it.o: ..\USER\LQ_Photoelectric.h
+..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_Photoelectric.h
+..\obj\stm32f1xx_it.o: ..\USER\APP\inc\LQ_HCSR04.h
 ..\obj\stm32f1xx_it.o: ..\USER\APP\inc\ANO_DT.h

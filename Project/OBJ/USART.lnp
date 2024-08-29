@@ -1,4 +1,6 @@
 --cpu Cortex-M3
+"..\obj\main.o"
+"..\obj\stm32f1xx_it.o"
 "..\obj\ano_dt.o"
 "..\obj\delay.o"
 "..\obj\lq_adc.o"
@@ -17,6 +19,7 @@
 "..\obj\lq_exti.o"
 "..\obj\lq_motor.o"
 "..\obj\lq_tim.o"
+"..\obj\lq_hcsr04.o"
 "..\obj\lq_photoelectric.o"
 "..\obj\startup_stm32f103xe.o"
 "..\obj\stm32f1xx_hal_msp.o"
@@ -79,8 +82,6 @@
 "..\obj\stm32f1xx_ll_usart.o"
 "..\obj\stm32f1xx_ll_usb.o"
 "..\obj\stm32f1xx_ll_utils.o"
-"..\obj\main.o"
-"..\obj\stm32f1xx_it.o"
 --strict --scatter "..\OBJ\USART.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

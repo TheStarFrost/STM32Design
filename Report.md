@@ -18,7 +18,7 @@
 
 [TOC]
 
-## 文件结构与模块划分
+## 文件结构与模块划分(GitHub仓库)
 
 本项目的文件结构如下：
 
@@ -62,13 +62,13 @@
 
 科目一使用的系统库开发环境为电机测试环境，在此部分未出现问题，着实幸运，然后续课题却恰在此处重重下了功夫。
 
-[科目一简单赛道展示](https://cloud.tsinghua.edu.cn/f/8d9df5c7846146b7a12c/)如下所示 也可通过链接观看
+[科目一简单赛道展示](https://cloud.tsinghua.edu.cn/f/8d9df5c7846146b7a12c/)如下GIF所示 若为PDF观看，可通过链接观看
 <center>
 
 ![科目一循迹简单赛道展示GIF](./asset/科目一%20循迹%20简单赛道.gif)
 </center>
 
-[科目一复杂赛道展示](https://cloud.tsinghua.edu.cn/f/a0b0f404d8ea46a98552/)如下所示 也可通过链接观看
+[科目一复杂赛道展示](https://cloud.tsinghua.edu.cn/f/a0b0f404d8ea46a98552/)如下GIF所示 若为PDF观看，可通过链接观看
 <center>
 
 ![科目一循迹简单赛道展示GIF](./asset/科目一%20循迹%20复杂赛道.gif)
@@ -352,7 +352,301 @@ int main(void)
 #### 科目二 `main.c` 
 
 ```c
-    '''科目二代码'''
+/*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+@编    写：龙邱科技
+@E-mail  ：chiusir@163.com
+@编译IDE ：KEIL5.25.3及以上版本
+@使用平台：北京龙邱智能科技全向福来轮小车
+@最后更新：2022年02月19日，持续更新，请关注最新版！
+@功能介绍：
+@相关信息参考下列地址
+@网    站：http://www.lqist.cn
+@淘宝店铺：http://longqiu.taobao.com
+@软件版本：V1.0 版权所有，单位使用请先联系授权
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
+
+// 包含所有头文件
+#include "include.h"
+
+void straight(int duty1, int duty2, int duty3, char *txt) // the car go staight
+{
+	if (duty1 < PWM_DUTY_MAX) //阈值
+	{
+		duty1 = 0;
+		duty2 = -2150;
+		duty3 = 2100;
+		MotorCtrl3w(duty1, duty2, duty3);
+	}
+}
+void left(int duty1, int duty2, int duty3, char *txt) // the car turn left
+{
+	if (duty1 < PWM_DUTY_MAX) //阈值
+	{
+		duty1 = -500;
+		duty2 = -1200;
+		duty3 = 500;
+		MotorCtrl3w(duty1, duty2, duty3);
+	}
+}
+
+void right(int duty1, int duty2, int duty3, char *txt) // the car turn right
+{
+	if (duty1 < PWM_DUTY_MAX) // 阈值
+	{
+		duty1 = 500;
+		duty2 = -600;
+		duty3 = 1200;
+		MotorCtrl3w(duty1, duty2, duty3);
+	}
+}
+
+void turn_zero(int duty1, int duty2, int duty3, char *txt) // speed turn zero
+{
+	if (duty1 > -PWM_DUTY_MAX) // // 阈值
+	{
+		duty1 = 0;
+		duty2 = 0;
+		duty3 = 0;
+		MotorCtrl3w(duty1, duty2, duty3);
+	}
+}
+
+void stopandturnleft(int duty1, int duty2, int duty3)
+{
+	if (duty1 > -PWM_DUTY_MAX) // 阈值
+	{
+		duty1 = 1000;
+		duty2 = 1000;
+		duty3 = 1000;
+		MotorCtrl3w(duty1, duty2, duty3);
+	}
+}
+
+void stopandturnright(int duty1, int duty2, int duty3)
+{
+	if (duty1 > -PWM_DUTY_MAX) // 阈值
+	{
+		duty1 = -1100;
+		duty2 = -1100;
+		duty3 = -1100;
+		MotorCtrl3w(duty1, duty2, duty3);
+	}
+}
+
+uint8_t TurnLeft[][4] = {
+	{1, 1, 1, 0}, // 1110
+	{1, 1, 0, 0}, // 1100
+	{1, 0, 0, 0}, // 1000
+};
+uint8_t TurnRight[][4] = {
+	{0, 0, 0, 1}, // 0001
+	{0, 0, 1, 1}, // 0011
+	{0, 1, 1, 1}  // 0111
+};
+uint8_t GoStraight[][4] = {
+	{1, 1, 1, 1}, // 1111
+	{0, 1, 1, 0}  // 0110
+};
+
+uint8_t Stop[][4] = {
+	{0, 0, 0, 0} // 0000
+};
+
+// 单一方向判断函数元
+uint8_t is_turn_single(uint8_t Turn[4], uint8_t sensor_Value[4])
+{
+	return (sensor_Value[0] == Turn[0] &&
+			sensor_Value[1] == Turn[1] &&
+			sensor_Value[2] == Turn[2] &&
+			sensor_Value[3] == Turn[3]);
+};
+
+// 转弯判断函数
+uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], uint8_t stop[][4], uint8_t sensor[4])
+{
+	int i = 0;
+	// 左转
+	for (i = 0; i < 3; i++)
+	{
+		if (is_turn_single(Left[i], sensor))
+		{
+			return 0;
+		}
+	}
+	// 直行
+	for (i = 0; i < 2; i++)
+	{
+		if (is_turn_single(Straight[i], sensor))
+		{
+			return 1;
+		}
+	}
+	// 右转
+	for (i = 0; i < 3; i++)
+	{
+		if (is_turn_single(Right[i], sensor))
+		{
+			return 2;
+		}
+	}
+	if (is_turn_single(stop[0], sensor))
+	{
+		return 4;
+	}
+	// 其他
+	return 3;
+};
+
+uint8_t is_ultra(uint16_t CurrentDis, uint8_t LastState)
+{
+	uint8_t ultra_flag = 0; // 避障标志位
+	if (LastState == 0)
+	{
+		if (CurrentDis < 35)
+		{
+			ultra_flag = 1; // 启动避障
+		}
+		else
+		{
+			ultra_flag = 0; // 复位
+		}
+	}
+	else
+	{
+		if (CurrentDis > 45)
+		{
+			ultra_flag = 0;
+		}
+		else
+		{
+			ultra_flag = 1;
+		}
+	}
+	return ultra_flag;
+}
+
+int main(void)
+{
+	int ECPULSE1 = 0, ECPULSE2 = 0, ECPULSE3 = 0;
+	uint8_t sensor_Value[4];
+	int status;
+	int angle;//回转标志
+	int k = 0;
+	int16_t duty = 1000, flag = 0;
+	int16_t duty1 = 0, duty2 = 0, duty3 = 0;
+	char txt[64];
+	uint8_t ultra_sonic = 0; // 超声标志位
+	uint16_t Dis = 0.0;
+	uint8_t turn;
+	//-----------------------初始化----------------------------
+	HAL_Init();			  // HAL初始化
+	SystemClock_Config(); // 初始化系统时钟 72M
+	delay_init(72);		  // 延迟初始化
+	JTAG_Set(SWD_ENABLE); // SWD初始化
+	//-----------------------------------------------------------------
+	uart_init(USART_3, 115200); // 初始化串口    连接LQMV4视觉模块
+	uart_init(USART_2, 115200); // 初始化串口    蓝牙接口
+	Ultrasonic_Init();
+	LED_Init();			// LED初始化
+	OLED_Init();		// OLED初始化
+	OLED_Show_LQLogo(); // 展示LOGO
+	delay_ms(500);		// 等待系统初始化
+	OLED_CLS();			// OLED清屏
+	MotorInit();
+	angle = 0;
+	while (1)
+	{
+		// 超声与光电
+		Dis = Get_Distance();
+		sprintf(txt, "Dis=%3d cm", Dis);
+		OLED_P6x8Str(60, 2, txt); // 展示超声距离
+		sensor_Value[0] = Read_sensor(sensor1);
+		sensor_Value[1] = Read_sensor(sensor2);
+		sensor_Value[2] = Read_sensor(sensor3);
+		sensor_Value[3] = Read_sensor(sensor4);
+		sprintf(txt, "%d %d %d %d", sensor_Value[0], sensor_Value[1], sensor_Value[2], sensor_Value[3]);
+		OLED_P6x8Str(0, 2, txt); // 光电信息展示
+		LED_Ctrl(RVS);
+
+		// 转弯判断与逻辑
+		turn = is_turn(TurnLeft, TurnRight, GoStraight, Stop, sensor_Value);
+		ultra_sonic = is_ultra(Dis, ultra_sonic);
+		if (ultra_sonic == 1)
+		{
+			MotorCtrl3w(600, 1000, -2300);
+			angle = 43;
+		}
+		else
+		{
+			switch (turn)
+			{
+			case 0:
+				OLED_P6x8Str(0, 3, "Left!");
+				left(duty1, duty2, duty3, txt);
+				// status = 1;
+				if (sensor_Value[0] == 1 && sensor_Value[1] == 1)
+				{
+					status = 1;
+				}
+				else
+					status = 0;
+				angle = 0;
+				break;
+			case 1:
+				OLED_P6x8Str(0, 3, "Line!");
+				straight(duty1, duty2, duty3, txt);
+				// status = 1;
+				if (sensor_Value[0] == 1 && sensor_Value[1] == 1)
+				{
+					status = 1;
+				}
+				else
+					status = 0;
+				angle = 0;
+				// delay_ms(500);
+				break;
+			case 2:
+				OLED_P6x8Str(0, 3, "Right");
+				right(duty1, duty2, duty3, txt);
+				// status = 1;
+				if (sensor_Value[0] == 1 && sensor_Value[1] == 1)
+				{
+					status = 1;
+				}
+				else
+					status = 0;
+				angle = 0;
+				break;
+			case 4:
+				OLED_P6x8Str(0, 3, "Out!!");
+				if (status == 1 && angle < 20)
+				{
+					stopandturnleft(duty1, duty2, duty3);
+					sprintf(txt, "right:%2d", angle);
+					OLED_P6x8Str(16, 5, txt);
+				}
+				status = 1;
+				angle++;
+				if (status == 1 && angle >= 20 && angle < 56)
+				{
+					stopandturnright(duty1, duty2, duty3);
+					sprintf(txt, "leftt:%2d", angle);
+					OLED_P6x8Str(16, 5, txt);
+				}
+				if (angle >= 56)
+					MotorCtrl3w(0, -1200, 1100);
+				break;
+
+			default:
+				OLED_P6x8Str(0, 3, "Error");
+				straight(duty1, duty2, duty3, txt);
+				status = 0;
+				angle = 0;
+				break;
+			}
+		}
+	}
+}
 ```
 
 ### 科目三:小车踢球

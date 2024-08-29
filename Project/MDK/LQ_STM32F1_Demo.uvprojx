@@ -381,6 +381,21 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>USER</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f1xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\stm32f1xx_it.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>APP</GroupName>
           <Files>
             <File>
@@ -472,6 +487,11 @@
               <FileName>LQ_TIM.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\APP\src\LQ_TIM.c</FilePath>
+            </File>
+            <File>
+              <FileName>LQ_HCSR04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\APP\src\LQ_HCSR04.c</FilePath>
             </File>
             <File>
               <FileName>LQ_Photoelectric.c</FileName>
@@ -842,21 +862,6 @@
               <FileName>readme.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\readme.txt</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>USER</GroupName>
-          <Files>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\stm32f1xx_it.c</FilePath>
             </File>
           </Files>
         </Group>
