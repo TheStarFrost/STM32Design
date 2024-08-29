@@ -1,132 +1,4 @@
-/*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-@??    ?????????
-@E-mail  ??chiusir@163.com
-@????IDE ??KEIL5.25.3???????
-@'??????????????????????????????
-@?????£?2022??02??19??????????£????????°?
-@????????
-@???????????????
-@??    ???http://www.lqist.cn
-@????????http://longqiu.taobao.com
-@???????V1.0 ???????????'????????????
-QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
-
-// ??????????l?
-/*#include "include.h"
-
-double x_error = 0;
-char txt[32];
-int duty1;
-int duty2;
-int duty3;
-int duty = 1000;
-double k;
-
-int main(void)
-{
-	//-----------------------????'??????----------------------------
-	HAL_Init();			  // ??'??HAL??
-	SystemClock_Config(); // ???????9???,72M
-	delay_init(72);		  // ??'?????????
-	JTAG_Set(SWD_ENABLE); // ??SWD??? ?????????????SWD??????
-	
-
-	//-----------------------------------------------------------------
-	uart_init(USART_3, 115200);			//??'??????    ????LQMV4???g??  
-	uart_init(USART_2, 115200);			//??'??????    ???????
-    OLED_Init();
-	LED_Init();							//??'??LED	
-	MotorInit();
-	delay_ms(500);		// ????
-	printf("Long Qiu Ke Ji\n");
-	printf("USART3 test,This is USART2.\n");
-    uart_SendBuf(&USART3_Handler, (uint8_t*)"This is USART3!\n");
-    OLED_P8x16Str(10,0,"UART Test");              //?????
-	
-	while(1)
-	{
-		//MotorCtrl3w(0, 1700, 1700);
-		if(receive_oneline3 != 0)
-		{
-			k = x_error;
-			uart_SendBuf(&USART3_Handler, (uint8_t*)ReadBuff);
-			x_error = atof((char*)ReadBuff);
-			sprintf(txt, "%f", x_error);
-            OLED_P8x16Str(0, 4, txt); //??????????????????OLED?
-			LED_Ctrl(RVS); 
-            //printf("R:%s\n",ReadBuff);  //????2????????????
-			
-			//
-			x_error = atof((char*)ReadBuff);
-			
-			if (x_error < 1000)
-			{
-				if (k > 1000)
-				{
-					MotorCtrl3w(-600, -600, -600);
-				  delayms(100);
-				}
-				if (x_error > 10)
-				{
-					if (x_error > 100)
-					{
-						
-						duty1 = 800 * (x_error-100) + 300;
-				duty2 = -1300;
-				duty3 = 1200;
-				MotorCtrl3w(duty1, duty2, duty3);
-						duty1 = -600;
-	duty2 = -1400;
-	duty3 = 400;
-	MotorCtrl3w(duty1,duty2, duty3);
-					}
-					else if (x_error < 100)
-					{
-						
-						duty1 = 800 * (x_error-100) - 400;
-				duty2 = -1300;
-				duty3 = 1200;
-				MotorCtrl3w(duty1, duty2, duty3);
-						duty1 = -600;
-	duty2 = -1400;
-	duty3 = 400;
-	MotorCtrl3w(duty1,duty2, duty3);
-					}
-				}
-				else
-				{
-					if (x_error > 0)
-					{
-						duty1 = 800 * x_error + 700;
-				duty2 = -1650 + 1000 * x_error;
-				duty3 = 1600 - 1000 * x_error;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					else if (x_error < 0)
-					{
-						duty1 = 800 * x_error - 800;
-				duty2 = -1650 + 2500 * x_error;
-				duty3 = 1600 - 1200 * x_error;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-			}
-		}
-			else
-			{
-				duty1 = 1000;
-				duty2 = 1000;
-				duty3 = 1000;
-				MotorCtrl3w(duty1, duty2, duty3);
-			}
-			receive_oneline3=0;         //???h???\n???????????????
-		}            
-		
-
-        //delay_ms(50); 
-		
-	}
-}*/
-/*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+/*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 @??    ?????????
 @E-mail  ??chiusir@163.com
 @????IDE ??KEIL5.25.3???????
@@ -142,221 +14,274 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 // ??????????l?
 #include "include.h"
 
-double x_error = 0;
-char txt[32];
-int duty1;
-int duty2;
-int duty3;
-int duty = 1000;
-double k;
-int k1;
+
+void straight(int duty1, int duty2, int duty3, char* txt)//the car go staight
+{
+	if (duty1 < PWM_DUTY_MAX) // ?????10000,??7200
+	{
+	duty1 = 0;
+	duty2 = -1950;
+	duty3 = 1900; 
+	MotorCtrl3w(duty1,duty2, duty3);
+	//sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+	//OLED_P6x8Str(10, 5, txt);
+	}
+}
+void left(int duty1, int duty2, int duty3, char* txt)//the car turn left
+{
+	if (duty1 < PWM_DUTY_MAX) // ?????10000,??7200
+	{
+	duty1 = -600;
+	duty2 = -1400;
+	duty3 = 400;
+	MotorCtrl3w(duty1,duty2, duty3);
+	//sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+	//OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void right(int duty1, int duty2, int duty3, char* txt)//the car turn right
+{
+	if (duty1 < PWM_DUTY_MAX) // ?????10000,??7200
+	{
+	duty1 = 600;
+	duty2 = -500;
+	duty3 = 1300;
+	MotorCtrl3w(duty1,duty2, duty3);
+	//sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+	//OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void turn_zero(int duty1, int duty2, int duty3, char* txt)//speed turn zero
+{
+	if (duty1 > -PWM_DUTY_MAX) // ?????10000,??7200
+	{
+	duty1 = 0;
+	duty2 = 0;
+	duty3 = 0;
+	MotorCtrl3w(duty1,duty2, duty3);
+	//sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+	//OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void stopandturnleft(int duty1, int duty2, int duty3)
+{
+	if (duty1 > -PWM_DUTY_MAX) // ?????10000,??7200
+	{
+	duty1 = 1000;
+	duty2 = 1000;
+	duty3 = 1000;
+	MotorCtrl3w(duty1,duty2, duty3);
+	//sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+	//OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+void stopandturnright(int duty1, int duty2, int duty3)
+{
+	if (duty1 > -PWM_DUTY_MAX) // ?????10000,??7200
+	{
+	duty1 = -1100;
+	duty2 = -1100;
+	duty3 = -1100;
+	MotorCtrl3w(duty1,duty2, duty3);
+	//sprintf(txt, "PWM: duty1=%2d,duty2=%2d,duty3=%2d", duty1, duty2, duty3);
+	//OLED_P6x8Str(10, 5, txt);
+	}
+}
+
+uint8_t TurnLeft[][4] = {
+	{1, 1, 1, 0}, // 1110
+	{1, 1, 0, 0}, // 1100
+	{1, 0, 0, 0}, // 1000
+	//{0, 0, 0, 0}  // 0000
+
+};
+uint8_t TurnRight[][4] = {
+	{0, 0, 0, 1}, // 0001
+	{0, 0, 1, 1}, // 0011
+	{0, 1, 1, 1}  // 0111
+};
+uint8_t GoStraight[][4] = {
+	{1, 1, 1, 1}, // 1111
+	{0, 1, 1, 0}  // 0110
+	//{1, 1, 1, 0}, // 1110
+	//{0, 1, 1, 1}
 	
-int kick = 0;
+};
+
+uint8_t Stop[][4] = {
+	{0, 0, 0, 0} // 0000
+};
+
+
+// ?????? ???????????
+uint8_t is_turn_single(uint8_t Turn[4], uint8_t sensor_Value[4])
+{
+	return (sensor_Value[0] == Turn[0] &&
+			sensor_Value[1] == Turn[1] &&
+			sensor_Value[2] == Turn[2] &&
+			sensor_Value[3] == Turn[3]);
+};
+
+// ?????? ????0/??1/??2
+uint8_t is_turn(uint8_t Left[][4], uint8_t Right[][4], uint8_t Straight[][4], uint8_t stop[][4], uint8_t sensor[4])
+{
+	int i = 0;
+	// ????
+	for (i = 0; i < 3; i++)
+	{
+		if (is_turn_single(Left[i], sensor))
+		{
+			return 0;
+		}
+	}
+	// ????
+	for (i = 0; i < 2; i++)
+	{
+		if (is_turn_single(Straight[i], sensor))
+		{
+			return 1;
+		}
+	}
+	// ????
+	for (i = 0; i < 3; i++)
+	{
+		if (is_turn_single(Right[i], sensor))
+		{
+			return 2;
+		}
+	}
+	if (is_turn_single(stop[0], sensor))
+	{
+		return 4;
+	}
+	// ??
+	return 3;
+};
 
 int main(void)
 {
-	//-----------------------????'??????----------------------------
-	HAL_Init();			  // ??'??HAL??
-	SystemClock_Config(); // ???????9???,72M
-	delay_init(72);		  // ??'?????????
-	JTAG_Set(SWD_ENABLE); // ??SWD??? ?????????????SWD??????
-	
-
+	int ECPULSE1 = 0,ECPULSE2 = 0,ECPULSE3 = 0;
+	uint8_t sensor_Value[4];
+	int status;
+	int angle;
+	int k = 0;
+	int16_t duty = 1000, flag = 0;
+	int16_t duty1 = 0, duty2 = 0, duty3 = 0;
+	char txt[64];
+	uint8_t turn;
+	//-----------------------???????----------------------------
+	HAL_Init();			  // ???HAL?
+	SystemClock_Config(); // ????9??,72M
+	delay_init(72);		  // ???????
+	JTAG_Set(SWD_ENABLE); // ??SWD?? ???????SWD????
 	//-----------------------------------------------------------------
-	uart_init(USART_3, 115200);			//??'??????    ????LQMV4???g??  
-	uart_init(USART_2, 115200);			//??'??????    ???????
-    OLED_Init();
-	LED_Init();							//??'??LED	
-	MotorInit();
+	Encoder_Init_TIM2();   //?????????????2,3,4?????AB??????
+	Encoder_Init_TIM3();
+	Encoder_Init_TIM4();
+	LED_Init();			// LED???
+	OLED_Init();		// OLED???
+	OLED_Show_LQLogo(); // ??LOGO
 	delay_ms(500);		// ????
-	printf("Long Qiu Ke Ji\n");
-	printf("USART3 test,This is USART2.\n");
-  MotorCtrl3w(0, -4600, 4000);
-			  delayms(100);
+	OLED_CLS();			// ??
+	MotorInit();
+	//Ultrasonic_Init();
+	OLED_P8x16Str(20, 0, "Project Test");
 	
-	
-	while(1)
+  angle = 0;
+	while (1)
 	{
-		//MotorCtrl3w(0, -1500, 1000);
+		//status[0] = status[1]
+		//status = 0;
+		// ????? ?1?0
+		sensor_Value[0] = Read_sensor(sensor1);
+		sensor_Value[1] = Read_sensor(sensor2);
+		sensor_Value[2] = Read_sensor(sensor3);
+		sensor_Value[3] = Read_sensor(sensor4);
+		//delay_ms(200);
+		sprintf(txt, "%d %d %d %d", sensor_Value[0], sensor_Value[1], sensor_Value[2], sensor_Value[3]);
+		OLED_P6x8Str(0, 2, txt); // ???
+		LED_Ctrl(RVS);
+
+		// ???????
+		turn = is_turn(TurnLeft, TurnRight, GoStraight, Stop, sensor_Value);
 		
-		uart_SendBuf(&USART3_Handler, (uint8_t*)"This is USART3!\n");
-    OLED_P8x16Str(10,0,"UART Test");              //?????
-		
-		k1 = 1;
-	while(k1 == 1)
-	{
-		//MotorCtrl3w(1200, 0, 0);
-		//LED_Ctrl(RVS); 
-		if(receive_oneline3 != 0)
+		switch (turn)
 		{
-			k = x_error;
-			uart_SendBuf(&USART3_Handler, (uint8_t*)ReadBuff);
-			x_error = atof((char*)ReadBuff);
-			sprintf(txt, "%f", x_error);
-            OLED_P8x16Str(0, 4, txt); //??????????????????OLED?
-			LED_Ctrl(RVS); 
-            //printf("R:%s\n",ReadBuff);  //????2????????????
-			
-			if (x_error < 1000)
-			{
-				if (k > 1000)
-				{
-					MotorCtrl3w(-600, -600, -600);
-				  delayms(100);
-				}
-				if (k == 100 && x_error != 100)
-				{
-					MotorCtrl3w(-2000, 0, 0);
-				  delayms(100);
-				}
-				if (k == 200 && x_error != 200)
-				{
-					MotorCtrl3w(2000, 2000, 2000);
-					//break;
-					delayms(100);
-					x_error = 10000;
-					
-				}
-				if (k <= 1 && k >= -1 && x_error == 100)
-				{
-					MotorCtrl3w(0, 0, 0);
-				  delayms(100);
-				}
-				if (x_error < -5) //jin qiu
-				{
-				duty1 = 0;
-				duty2 = 0;
-				duty3 = 0;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-				
-				else  //no jin qiu
-				{
-					if (x_error >= 0 && x_error <= 1)//chao hong qiu zou
-					{
-						duty1 = 800 * x_error + 800;
-				duty2 = -2350 + 1100 * x_error;
-				duty3 = 2300 - 1100 * x_error;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error < 0 && x_error >= -1)//chao hong qiu zou
-					{
-						duty1 = 800 * x_error - 900;
-				duty2 = -2350 + 2500 * x_error;
-				duty3 = 2300 - 1200 * x_error;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					
-					if (x_error >= 10 && x_error <= 11)//chao hong qiu zou
-					{
-						duty1 = 800 * (x_error-10) + 700;
-				duty2 = -950 + 1100 * (x_error-10);
-				duty3 = 900 - 1100 * (x_error-10);
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error < 10 && x_error >= 9)//chao hong qiu zou
-					{
-						duty1 = 800 * (x_error-10) - 800;
-				duty2 = -1050 + 2500 * (x_error-10);
-				duty3 = 1000 - 1200 * (x_error-10);
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					
-					if (x_error == 100)//rao qiu zhuan
-					{
-				duty1 = 1800;
-				duty2 = 0;
-				duty3 = -700;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error == 300)//rao qiu zhuan  (ni shi zhen)
-					{
-				duty1 = -1500;
-				duty2 = 0;
-				duty3 = -600;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error > 200 && x_error <= 201)//chao qiu men zou
-					{
-						duty1 = -900;
-				duty2 = 500;
-				duty3 = 0;
-				MotorCtrl3w(duty1, duty2, duty3);
-					} 
-					if (x_error < 200 && x_error >= 199)//chao qiu men zou
-					{
-						duty1 = 900;
-				duty2 = 0;
-				duty3 = -500;
-				MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error == 200)
-					{
-						k1 = 0;
-						//duty1 = 0;
-				//duty2 = -3600;
-				//duty3 = 2000;
-						MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error == 250)
-					{
-						duty1 = 0;
-				    duty2 = -2660;
-				duty3 = 2500;
-						MotorCtrl3w(duty1, duty2, duty3);
-					}
-					if (x_error == 251)
-					{
-						k1 = 5;
-					}
-			}
-		}
-			else
-			{
-				duty1 = 1000;
-				duty2 = 1000;
-				duty3 = 1000;
-				MotorCtrl3w(duty1, duty2, duty3);
-			}
-			receive_oneline3=0;         //???h???\n???????????????
-		}
-    if (k1 != 1)
-		{
+		case 0:
+			OLED_P6x8Str(0, 3, "Left!");
+		  left(duty1, duty2, duty3, txt);
+		  //status = 1;
+		  if (sensor_Value[0] == 1 && sensor_Value[1] == 1)
+		  {
+			  status = 1;
+		  }
+		  else
+			  status = 0;
+		  angle = 0;
 			break;
-		}			
-	}		
-		if (k1 == 0)
-		{
-			MotorCtrl3w(-1600, 0, 0);
-				  delayms(165);
-			duty1 = 0;
-				duty2 = -4600;
-				duty3 = 4000;
-						MotorCtrl3w(duty1, duty2, duty3);
-						delayms(1200);
-			MotorCtrl3w(0, 0, 0);
-			 delayms(800);
+		case 1:
+			OLED_P6x8Str(0, 3, "Line!");
+		  straight(duty1, duty2, duty3, txt);
+		  //status = 1;
+		  if (sensor_Value[0] == 1 && sensor_Value[1] == 1)
+		  {
+			  status = 1;
+		  }
+		  else
+			  status = 0;
+		  angle = 0;
+		  //delay_ms(500);
+			break;
+		case 2:
+			OLED_P6x8Str(0, 3, "Right");
+		  right(duty1, duty2, duty3, txt);
+		  //status = 1;
+		  if (sensor_Value[0] == 1 && sensor_Value[1] == 1)
+		  {
+			  status = 1;
+		  }
+		  else
+			  status = 0;
+		  angle = 0;
+			break;
+		case 4:
+			OLED_P6x8Str(0, 3, "Out!!");
+			if (status == 1 && angle < 140)
+			{
+				stopandturnleft(duty1, duty2, duty3);
+				sprintf(txt, "right:%2d", angle);
+	      OLED_P6x8Str(16, 5, txt);
+			}
+			status = 1;
+			angle ++;
+			if (status == 1 && angle > 140)
+			{
+				stopandturnright(duty1, duty2, duty3);
+				sprintf(txt, "leftt:%2d", angle);
+	      OLED_P6x8Str(16, 5, txt);
+			}
+			break;
+		  
+		default:
+			OLED_P6x8Str(0, 3, "Error");
+		  straight(duty1, duty2, duty3, txt);
+		  status = 0;
+		  angle = 0;
+			break;
 		}
-
-     if (k1 == 5)
-		 {
-			 duty1 = 0;
-				duty2 = 2500;
-				duty3 = -2600;
-						MotorCtrl3w(duty1, duty2, duty3);
-						delayms(500);
-			 duty1 = 1200;
-				duty2 = 1200;
-				duty3 = 1200;
-						MotorCtrl3w(duty1, duty2, duty3);
-			 delayms(360);
-			 
-		 }
-	
-	
-		
+		ECPULSE1=Read_Encoder(2);
+		sprintf(txt,"E1:%04d ",ECPULSE1);
+	    OLED_P6x8Str(0,4,txt);	
+		ECPULSE2=Read_Encoder(3);
+		sprintf(txt,"E2:%04d ",ECPULSE2);
+	    OLED_P6x8Str(0,5,txt);	
+		ECPULSE3=Read_Encoder(4);
+		sprintf(txt,"E3:%04d ",ECPULSE3);
+	    OLED_P6x8Str(0,6,txt);
+		//delay_ms(50);
 	}
-	 
-						
-
 }

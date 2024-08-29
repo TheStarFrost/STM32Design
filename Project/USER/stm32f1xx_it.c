@@ -161,6 +161,12 @@ void SysTick_Handler(void)
 /**
   * @}
   */ 
+extern TIM_HandleTypeDef 	TIM1_Handler;
+//PWM TIM1 更新中断，服务函数
+void TIM1_UP_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&TIM1_Handler);
+}
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 @函数名称：void TIM4_IRQHandler(void)
 @功能说明：定时器中断服务函数
@@ -189,7 +195,7 @@ void TIM4_IRQHandler(void)
 QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 void TIM3_IRQHandler(void)
 { 	
-    HAL_TIM_IRQHandler(&TIM3_Handler);   
+//    HAL_TIM_IRQHandler(&TIM3_Handler);   
     
 	if(TIM3->SR&0X0001)//溢出中断
 	{ 
@@ -217,17 +223,5 @@ void TIM2_IRQHandler(void)
 /**
   * @}
   */
- 
-//串口2中断服务程序
-void USART2_IRQHandler(void)                	
-{ 
-	HAL_UART_IRQHandler(&USART2_Handler);	//调用HAL库中断处理公用函数-----该函数会清空中断标志，取消中断使能，并间接调用回调函数
-} 
-
-//串口3中断服务程序
-void USART3_IRQHandler(void)                	
-{ 
-	HAL_UART_IRQHandler(&USART3_Handler);	//调用HAL库中断处理公用函数-----该函数会清空中断标志，取消中断使能，并间接调用回调函数
-} 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

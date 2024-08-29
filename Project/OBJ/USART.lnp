@@ -1,6 +1,4 @@
 --cpu Cortex-M3
-"..\obj\main.o"
-"..\obj\stm32f1xx_it.o"
 "..\obj\ano_dt.o"
 "..\obj\delay.o"
 "..\obj\lq_adc.o"
@@ -17,8 +15,9 @@
 "..\obj\lq_led.o"
 "..\USER\APP\inc\LQ_MPU6050_DMP.lib"
 "..\obj\lq_exti.o"
-"..\obj\lq_tim.o"
 "..\obj\lq_motor.o"
+"..\obj\lq_tim.o"
+"..\obj\lq_photoelectric.o"
 "..\obj\startup_stm32f103xe.o"
 "..\obj\stm32f1xx_hal_msp.o"
 "..\obj\system_stm32f1xx.o"
@@ -80,6 +79,8 @@
 "..\obj\stm32f1xx_ll_usart.o"
 "..\obj\stm32f1xx_ll_usb.o"
 "..\obj\stm32f1xx_ll_utils.o"
+"..\obj\main.o"
+"..\obj\stm32f1xx_it.o"
 --strict --scatter "..\OBJ\USART.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

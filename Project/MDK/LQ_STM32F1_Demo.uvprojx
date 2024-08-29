@@ -381,21 +381,6 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>USER</GroupName>
-          <Files>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\stm32f1xx_it.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>APP</GroupName>
           <Files>
             <File>
@@ -479,14 +464,19 @@
               <FilePath>..\USER\APP\src\LQ_EXTI.c</FilePath>
             </File>
             <File>
+              <FileName>LQ_Motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\APP\src\LQ_Motor.c</FilePath>
+            </File>
+            <File>
               <FileName>LQ_TIM.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\APP\src\LQ_TIM.c</FilePath>
             </File>
             <File>
-              <FileName>LQ_Motor.c</FileName>
+              <FileName>LQ_Photoelectric.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\5.Motor_Test\USER\APP\src\LQ_Motor.c</FilePath>
+              <FilePath>..\USER\APP\src\LQ_Photoelectric.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -852,6 +842,21 @@
               <FileName>readme.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\readme.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>USER</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f1xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\stm32f1xx_it.c</FilePath>
             </File>
           </Files>
         </Group>

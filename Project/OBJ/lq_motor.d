@@ -1,4 +1,4 @@
-..\obj\lq_motor.o: ..\..\..\5.Motor_Test\USER\APP\src\LQ_Motor.c
+..\obj\lq_motor.o: ..\USER\APP\src\LQ_Motor.c
 ..\obj\lq_motor.o: ..\USER\include.h
 ..\obj\lq_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\lq_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
@@ -76,4 +76,5 @@
 ..\obj\lq_motor.o: ..\USER\APP\inc\LQ_ADC.h
 ..\obj\lq_motor.o: ..\USER\APP\inc\LQ_IIC_Gyro.h
 ..\obj\lq_motor.o: ..\USER\APP\inc\LQ_MPU6050_DMP.h
+..\obj\lq_motor.o: ..\USER\LQ_Photoelectric.h
 ..\obj\lq_motor.o: ..\USER\APP\inc\ANO_DT.h
