@@ -18,7 +18,7 @@
 
 [TOC]
 
-## 文件结构与模块划分(GitHub仓库)
+## 文件结构与模块划分([GitHub仓库](https://github.com/TheStarFrost/STM32Design))
 
 本项目的文件结构如下：
 
